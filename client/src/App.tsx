@@ -9,7 +9,6 @@ function App() {
     
     <Router>
       <div className="flex flex-col w-screen h-screen bg-bodyBackground font-mono">
-      <Nav/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
