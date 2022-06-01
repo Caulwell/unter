@@ -8,7 +8,7 @@ function App() {
   return (
     
     <Router>
-      <div className="flex flex-col w-screen h-screen bg-bodyBackground font-mono">
+      <div className="flex flex-col w-screen h-screen bg-bodyBackground font-sans">
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>

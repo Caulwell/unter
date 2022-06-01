@@ -1,12 +1,13 @@
 import { useState } from "react";
 import ControlPanel from "../components/ControlPanel";
-import JobModal from "../components/JobModal";
+import CreateJob from "../components/CreateJob";
 
-
+import { Job } from "../common/types";
 
 const Dashboard = () => {
 
     const [modalOpen, setModalOpen] = useState(false);
+    const [jobs, setJobs] = useState<Job[]>([]);
 
 
     const toggleModal = () => {
@@ -16,8 +17,18 @@ const Dashboard = () => {
     return (
         <div className="flex flex-col overflow-hidden  w-screen h-full ">
             {modalOpen &&
-            <JobModal toggleModal={toggleModal}/>}
+            <CreateJob toggleModal={toggleModal} setJobs={setJobs} jobs={jobs}/>}
             <ControlPanel toggleModal={toggleModal}/>
+            <div className="flex flex-col w-full h-full">
+                {jobs.map(job => {
+                    return (
+                        <div className="flex">
+                            {job.title}
+                            {job.company}
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

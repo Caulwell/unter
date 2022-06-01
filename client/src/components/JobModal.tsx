@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 
@@ -16,6 +17,14 @@ const JobModal = ({toggleModal}: Props) => {
 
     const [tabSelected, setTabSelected] = useState("Job Info");
 
+    const [title, setTitle] = useState("");
+    const [company, setCompany] = useState("");
+    const [location, setLocation] = useState("");
+    const [salary, setSalary] = useState("");
+    const [url, setUrl] = useState("");
+    const [colour, setColour] = useState("#ffffff");
+    const [description, setDescription] = useState("");
+
     const TabButton = ({name} :ButtonProps) => {
 
         return (
@@ -25,9 +34,30 @@ const JobModal = ({toggleModal}: Props) => {
         )
     }
 
-    useEffect(() => {
-        console.log("re render");
-    },[])
+    const handleForm = (e :any ) => {
+
+        e.preventDefault();
+
+        axios.post("https://localhost:7001/job/", {
+            title,
+            company,
+            location,
+            salary,
+            url,
+            colour,
+            description
+        })
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+
+    }
+
+
 
     return (
 
@@ -43,9 +73,7 @@ const JobModal = ({toggleModal}: Props) => {
                            <TabButton name="Documents"/>
                         </div>
                         <div className="flex space-x-3">
-                        <button  className="rounded px-2 shadow-md bg-teal-300 text-white">
-                            Save
-                        </button>
+
                         <button onClick={() => toggleModal()} className="rounded px-2 shadow-md bg-teal-900 text-white">
                             Close
                         </button>
@@ -53,13 +81,18 @@ const JobModal = ({toggleModal}: Props) => {
                         
                     </div>
 
-                    <form className="grid grid-cols-2 row-auto py-6 gap-y-6 gap-x-2">
-                        <input className="w-72 text-sm" type="text" placeholder="Job Title"></input>
-                        <input className="w-72 text-sm" type="text" placeholder="Company"></input>
-                        <input className="w-72 text-sm" type="text" placeholder="Location"></input>
-                        <input className="w-72 text-sm" type="text" placeholder="Salary"></input>
-                        <input className="col-span-2 text-sm" type="text" placeholder="URL"></input>
-                        <textarea className="col-span-2 h-36 text-sm" placeholder="Description"></textarea>
+                    <form className="grid grid-cols-2 row-auto py-6 gap-y-6 gap-x-2" onSubmit={handleForm}>
+
+                        <button type="submit" className="col-span-2">Save</button>
+
+                        <input value={title} onChange={e => setTitle(e.target.value)} className="w-72 text-sm" type="text" placeholder="Job Title"></input>
+                        <input value={company}  onChange={e => setCompany(e.target.value)} className="w-72 text-sm" type="text" placeholder="Company"></input>
+                        <input value={location}  onChange={e => setLocation(e.target.value)} className="w-72 text-sm" type="text" placeholder="Location"></input>
+                        <input value={salary}  onChange={e => setSalary(e.target.value)} className="w-72 text-sm" type="number" placeholder="Salary"></input>
+                        <input value={url}  onChange={e => setUrl(e.target.value)} className="w-72 text-sm" type="text" placeholder="URL"></input>
+                        <input value={colour}  onChange={e => setColour(e.target.value)} className="text-sm" type="color"></input>
+                        <textarea value={description}  onChange={e => setDescription(e.target.value)} className="col-span-2 h-36 text-sm" placeholder="Description"></textarea>
+
                     </form>
 
                 </div>
