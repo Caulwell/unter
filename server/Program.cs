@@ -1,6 +1,13 @@
+using unter.Data;
+using Microsoft.EntityFrameworkCore;
+
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+));
 
 builder.Services.AddCors(options =>
 {

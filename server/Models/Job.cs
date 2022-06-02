@@ -15,5 +15,10 @@ public class Job{
     public string? URL {get;set;}
     public string? Colour {get;set;}
     public string? Description {get;set;}
+
+    public DateTime Date_Added {get;set;} = DateTime.Now;
+    public DateTime? Deadline {get;set;}
+    public string Status {get;set;} = "New";
+
     
 }
