@@ -8,4 +8,7 @@ export interface Job{
     url?:string;
     colour?:string;
     description?:string;
+    date_Added?: Date;
+    deadline?: Date;
+    status?:string;
 }

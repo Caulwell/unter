@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ControlPanel from "../components/ControlPanel";
 import CreateJob from "../components/CreateJob";
 
 import { Job } from "../common/types";
 import JobList from "../components/JobList";
+import axios from "axios";
 
 const Dashboard = () => {
 
@@ -14,6 +15,19 @@ const Dashboard = () => {
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     }
+
+
+    useEffect(() => {
+
+        axios.get("https://localhost:7001/job/")
+        .then(res => {
+            setJobs(res.data);
+            console.log(new Date(res.data[0].date_Added).toLocaleDateString());
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    },[])
 
     return (
         <div className="flex flex-col overflow-hidden  w-screen h-full ">

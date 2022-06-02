@@ -22,13 +22,13 @@ const ListJob = ({job} : Props) => {
                     {job.salary}
                 </td>
                 <td className="px-6 py-4 text-gray-700">
-                    02/06/2022
+                    {job.date_Added && new Date(job.date_Added).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 text-gray-700">
-                    07/06/2022
+                    {job.deadline && new Date(job.deadline).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 text-gray-700">
-                    Applied
+                    {job.status}
                 </td>
                 <td className="px-3 py-4 text-right space-x-6">
                     <a href="#" className="font-medium text-gray-700  hover:underline">Edit</a>
