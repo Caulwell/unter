@@ -39,7 +39,7 @@ const CreateJob = ({toggleModal, setJobs, jobs} : Props) => {
 
     
     return (
-        <div className="bg-modalBackground w-screen h-screen z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
+        <div className="bg-modalBackground w-screen h-screen z-1 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
             <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100">
 
                 <div className=" z-10 rounded-md shadow-md bg-white opacity-100 flex flex-col text-slate-700">

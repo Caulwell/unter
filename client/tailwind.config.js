@@ -6,10 +6,9 @@ module.exports = {
     extend: {
       colors: {
         bodyBackground: "#fff",
-        modalBackground: "rgba(0, 0, 0, 0.2)",
-        uiElementBg: "rgb(32, 42, 58)",
-        textDark: "rgb(32, 42, 58)",
-        textLighter: "rgb(8, 145, 178)"
+        primaryBg: "#64748b",
+        primary2Bg: "#64748b",
+        primaryMuted: "#e2e8f0",
       },
       width: {
         "128": "48rem"
