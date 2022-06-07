@@ -3,9 +3,11 @@ import ListJob from "./ListJob";
 import { Job } from "../common/types";
 
 interface Props{
-    jobs: Job[]
+    jobs: Job[],
+    toggleEditModal: (id:number) => void,
+    toggleDeleteModal: (id:number) => void
 }
-const JobList = ({jobs} : Props) => {
+const JobList = ({jobs,toggleEditModal, toggleDeleteModal} : Props) => {
 
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -42,7 +44,7 @@ const JobList = ({jobs} : Props) => {
         <tbody>
             {jobs.map(job => {
                 return (
-                    <ListJob job={job}/>
+                    <ListJob job={job} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal}/>
                 )
             })}
             

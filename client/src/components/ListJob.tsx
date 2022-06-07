@@ -1,14 +1,19 @@
+import { useEffect, useState } from "react";
 import { Job } from "../common/types";
 
 interface Props{
-    job: Job
+    job: Job,
+    toggleEditModal: (id:number) => void,
+    toggleDeleteModal: (id:number) => void,
 }
 
-const ListJob = ({job} : Props) => {
+const ListJob = ({job, toggleEditModal, toggleDeleteModal} : Props) => {
 
 
     return (
         <tr className="border-b border-gray-200 odd:bg-gray-100 even:bg-white">
+
+       
                 <th scope="row" className="px-6 py-4 font-medium text-gray-700  whitespace-nowrap">
                     {job.title}
                 </th>
@@ -31,10 +36,12 @@ const ListJob = ({job} : Props) => {
                     {job.status}
                 </td>
                 <td className="px-3 py-4 text-right space-x-6">
-                    <a href="#" className="font-medium text-gray-700  hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-gray-700  hover:underline">Delete</a>
+                    <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => toggleEditModal(job.id)}>Edit</a>
+                    <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => toggleDeleteModal(job.id)}>Delete</a>
                 </td>
-            </tr>
+
+    </tr>
+        
     )
 }
 

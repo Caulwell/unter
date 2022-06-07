@@ -1,10 +1,10 @@
 
 interface ControlPanelProps{
-    toggleModal: () => void;
+    toggleCreateModal: () => void;
 }
 
 
-const ControlPanel = ({toggleModal} : ControlPanelProps) => {
+const ControlPanel = ({toggleCreateModal} : ControlPanelProps) => {
 
 
 
@@ -22,7 +22,7 @@ const ControlPanel = ({toggleModal} : ControlPanelProps) => {
             <button className=" text-slate-400 transition-all hover:border-b-2 flex align-center ">
                 Metrics
             </button>
-            <button onClick={toggleModal} className=" rounded text-white bg-emerald-700  px-2">
+            <button onClick={toggleCreateModal} className=" rounded text-white bg-emerald-700  px-2">
                 + Add Job
             </button>
             

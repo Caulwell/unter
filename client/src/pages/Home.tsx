@@ -13,7 +13,7 @@ const Home = () => {
                 <p className="text-slate-500 mb-12">Collate, organise, and analyse your way into a new role</p>
                 <Link 
                     to="/dashboard"
-                    className="p-3  pt-2 text-white bg-uiElementBg rounded-full baseline hover:bg-brightRedLight text-center">
+                    className="p-3  pt-2 text-white bg-primaryBg rounded-full baseline hover:bg-primaryBg text-center">
                     Get Started
                 </Link>
             </div>
