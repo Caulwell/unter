@@ -7,17 +7,18 @@ import JobList from "../components/JobList";
 import axios from "axios";
 import EditJob from "../components/EditJob";
 import DeleteJob from "../components/DeleteJob";
+import Loading from "../components/Loading";
 
 const Dashboard = () => {
 
     const [createMode, setCreateMode] = useState<boolean>(false);
-
-    const [currentJob, setCurrentJob] = useState<Job>();
-
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
+    const [currentJob, setCurrentJob] = useState<Job>();
 
     const [jobs, setJobs] = useState<Job[]>([]);
+
+    const [loading, setLoading] = useState(false);
 
 
     const toggleCreateModal = () => {
@@ -36,16 +37,20 @@ const Dashboard = () => {
     useEffect(() => {
 
         if(!editMode && !deleteMode){
+
+            setLoading(true);
+
             axios.get("https://localhost:7001/job/")
             .then(res => {
                 setJobs(res.data);
-                console.log(res.data[0].deadline);
-                console.log(typeof res.data[0].deadline);
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
+                setLoading(false);
             });
         }
+
     },[editMode, deleteMode])
 
     return (
@@ -60,7 +65,12 @@ const Dashboard = () => {
             }
             <ControlPanel toggleCreateModal={toggleCreateModal}/>
             <div className="flex flex-col w-full h-full p-6">
+                {loading ?
+                <Loading/>
+                :
                 <JobList jobs={jobs} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} setCurrentJob={setCurrentJob}/>
+                }
+              
             </div>
         </div>
     )

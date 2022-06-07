@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Job } from "../common/types";
+import Loading from "./Loading";
 
 interface Props{
     job: Job | undefined,
@@ -20,7 +21,11 @@ const EditJob = ({job, toggleEditModal} : Props) => {
     const [description, setDescription] = useState(job?.description);
     const [url, setUrl] = useState(job?.url);
 
+    const [loading, setLoading] = useState(false);
+
     const handleEdit = () => {
+
+        setLoading(true);
 
             axios.put("https://localhost:7001/job/", {
                 id:job?.id,
@@ -42,11 +47,13 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                 setStatus("");
                 setDescription("");
                 setUrl("");
+                setLoading(false);
                 toggleEditModal();
                 
             })
             .catch(err => {
                 console.log(err);
+                setLoading(false);
                 toggleEditModal();
             })
 
@@ -63,6 +70,10 @@ const EditJob = ({job, toggleEditModal} : Props) => {
 
                 <div className="w-fit max-h-screen z-10 rounded-md shadow-md bg-white opacity-100 flex flex-col text-slate-700 p-3 overflow-y-auto">
 
+                    {loading ?
+                    <Loading/>
+                    :
+                    <>
                     <div className="flex justify-between items-center border-b-2">
                     <div className=" p-6 flex flex-col align-start font-bold">
                         <h1 className="text-2xl">{title}</h1>
@@ -179,6 +190,11 @@ const EditJob = ({job, toggleEditModal} : Props) => {
 
         
                     </div>
+
+                    </>
+
+                    }
+                    
 
                 
                     
