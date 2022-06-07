@@ -4,7 +4,7 @@ import { Job } from "../common/types";
 
 interface Props{
     job: Job | undefined,
-    toggleEditModal: (id:number) => void
+    toggleEditModal: () => void
 }
 
 
@@ -42,11 +42,12 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                 setStatus("");
                 setDescription("");
                 setUrl("");
-                toggleEditModal(666);
+                toggleEditModal();
                 
             })
             .catch(err => {
                 console.log(err);
+                toggleEditModal();
             })
 
     }
@@ -68,7 +69,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <h3 className="font-light text-lg">{company}</h3>
                     </div>
                     <div className="flex justify-end m space-x-4 pt-6">
-                            <button onClick={() => toggleEditModal(666)} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Discard</button>
+                            <button onClick={() => toggleEditModal()} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Discard</button>
                             <button onClick={() => handleEdit()} className="p-1 px-2 text-white font-bold text-sm bg-slate-500 rounded hover:shadow-md">Save Job</button>
                     </div>
                     </div>

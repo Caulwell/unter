@@ -12,10 +12,9 @@ const Dashboard = () => {
 
     const [createMode, setCreateMode] = useState<boolean>(false);
 
-    const [editingJob, setEditingJob] = useState<Job>();
-    const [editMode, setEditMode] = useState<boolean>(false);
+    const [currentJob, setCurrentJob] = useState<Job>();
 
-    const [deletingJob, setDeletingJob] = useState<Job>();
+    const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
 
     const [jobs, setJobs] = useState<Job[]>([]);
@@ -25,19 +24,12 @@ const Dashboard = () => {
         setCreateMode(!createMode);
     }
 
-    const toggleEditModal = (id:number) => {
-        if(id !== 666){
-            setEditingJob(jobs.find(job => job.id == id))
-        } 
+    const toggleEditModal = () => {
         setEditMode(!editMode);
     }
 
-    const toggleDeleteModal = (id:number) => {
-        if(id !== 666){
-            setDeletingJob(jobs.find(job => job.id == id))
-        }
+    const toggleDeleteModal = () => {
         setDeleteMode(!deleteMode);
-
     }
 
 
@@ -61,14 +53,14 @@ const Dashboard = () => {
             {createMode &&
             <CreateJob toggleCreateModal={toggleCreateModal} setJobs={setJobs} jobs={jobs}/>}
             {editMode && 
-            <EditJob job={editingJob} toggleEditModal={toggleEditModal}/>
+            <EditJob job={currentJob} toggleEditModal={toggleEditModal}/>
             }
             {deleteMode &&
-            <DeleteJob job={deletingJob} toggleDeleteModal={toggleDeleteModal}/>
+            <DeleteJob job={currentJob} toggleDeleteModal={toggleDeleteModal}/>
             }
             <ControlPanel toggleCreateModal={toggleCreateModal}/>
             <div className="flex flex-col w-full h-full p-6">
-                <JobList jobs={jobs} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal}/>
+                <JobList jobs={jobs} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} setCurrentJob={setCurrentJob}/>
             </div>
         </div>
     )

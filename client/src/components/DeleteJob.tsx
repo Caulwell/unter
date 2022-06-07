@@ -3,7 +3,7 @@ import { Job } from "../common/types";
 
 interface Props{
     job: Job | undefined,
-    toggleDeleteModal: (id:number) => void
+    toggleDeleteModal: () => void
 }
 
 
@@ -14,11 +14,12 @@ const DeleteJob = ({job, toggleDeleteModal} : Props) => {
         axios.delete(`https://localhost:7001/job/${job && job.id}`)
         .then(res => {
             console.log(res);
-            toggleDeleteModal(666);
+            toggleDeleteModal();
             
         })
         .catch(err => {
             console.log(err);
+            toggleDeleteModal();
         })
 
 }
@@ -33,7 +34,7 @@ const DeleteJob = ({job, toggleDeleteModal} : Props) => {
                     <h5>Are you sure you want to delete this job?</h5>
                 </div>
                 <div className="flex items-center p-6 justify-center space-x-6">
-                <button onClick={() => toggleDeleteModal(666)} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Cancel</button>
+                <button onClick={() => toggleDeleteModal()} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Cancel</button>
                 <button onClick={() => handleDelete()} className="p-1 px-2 text-white font-bold text-sm bg-slate-500 rounded hover:shadow-md">Delete Job</button>
                 </div>
             

@@ -5,9 +5,10 @@ interface Props{
     job: Job,
     toggleEditModal: (id:number) => void,
     toggleDeleteModal: (id:number) => void,
+    setCurrentJob: (job:Job) => void
 }
 
-const ListJob = ({job, toggleEditModal, toggleDeleteModal} : Props) => {
+const ListJob = ({job, toggleEditModal, toggleDeleteModal, setCurrentJob} : Props) => {
 
 
     return (
@@ -36,8 +37,18 @@ const ListJob = ({job, toggleEditModal, toggleDeleteModal} : Props) => {
                     {job.status}
                 </td>
                 <td className="px-3 py-4 text-right space-x-6">
-                    <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => toggleEditModal(job.id)}>Edit</a>
-                    <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => toggleDeleteModal(job.id)}>Delete</a>
+                    <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => {
+                        toggleEditModal(job.id);
+                        setCurrentJob(job);
+                        }}>
+                        Edit
+                    </a>
+                    <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => {
+                        toggleDeleteModal(job.id)
+                        setCurrentJob(job);   
+                    }}>
+                    Delete
+                    </a>
                 </td>
 
     </tr>

@@ -5,9 +5,10 @@ import { Job } from "../common/types";
 interface Props{
     jobs: Job[],
     toggleEditModal: (id:number) => void,
-    toggleDeleteModal: (id:number) => void
+    toggleDeleteModal: (id:number) => void,
+    setCurrentJob: (job:Job) => void
 }
-const JobList = ({jobs,toggleEditModal, toggleDeleteModal} : Props) => {
+const JobList = ({jobs,toggleEditModal, toggleDeleteModal, setCurrentJob} : Props) => {
 
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -44,7 +45,7 @@ const JobList = ({jobs,toggleEditModal, toggleDeleteModal} : Props) => {
         <tbody>
             {jobs.map(job => {
                 return (
-                    <ListJob job={job} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal}/>
+                    <ListJob job={job} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} setCurrentJob={setCurrentJob}/>
                 )
             })}
             
