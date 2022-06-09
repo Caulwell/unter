@@ -1,40 +1,48 @@
 import ListJob from "./ListJob";
 
 import { Job } from "../common/types";
+import { Dispatch, SetStateAction, useState } from "react";
+
+import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 
 interface Props{
     jobs: Job[],
     toggleEditModal: (id:number) => void,
     toggleDeleteModal: (id:number) => void,
-    setCurrentJob: (job:Job) => void
+    setCurrentJob: Dispatch<SetStateAction<Job | undefined>>,
+    handleSortColumn: (column:string) => void,
+    sortConfig: {column:string, direction: "ascending" | "descending"},
 }
-const JobList = ({jobs,toggleEditModal, toggleDeleteModal, setCurrentJob} : Props) => {
+const JobList = ({jobs,toggleEditModal, toggleDeleteModal, setCurrentJob, handleSortColumn, sortConfig} : Props) => {
+
+
+    const getArrow = () => sortConfig.direction === "ascending" ? <FaChevronUp/> : <FaChevronDown/>
 
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left text-gray-50">
         <thead className="text-xs  uppercase text-slate-700 ">
-            <tr>
-                <th scope="col" className="px-6 py-3">
-                    Job Title
+            <tr >
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer max-w-8" onClick={() => handleSortColumn("title")}>
+                    <span className="flex space-x-6 items-center"><span>title</span> {sortConfig.column === "title" && getArrow()}</span>
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Company
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer " onClick={() => handleSortColumn("company")}>
+                    <span className="flex space-x-6 items-center"><span>company</span> {sortConfig.column === "company" && getArrow()}</span>
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Location
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer " onClick={() => handleSortColumn("location")}>
+                    <span className="flex space-x-6 items-center"><span>location</span> {sortConfig.column === "location" && getArrow()}</span>
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Salary
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer " onClick={() => handleSortColumn("salary")}>
+                    <span className="flex space-x-6 items-center"><span>salary</span> {sortConfig.column === "salary" && getArrow()}</span>
                 </th>
-                <th scope="col" className="px-6 py-3">
-                   Added
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer " onClick={() => handleSortColumn("added")}>
+                    <span className="flex space-x-6 items-center"><span>added</span> {sortConfig.column === "added" && getArrow()}</span>
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Deadline
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer " onClick={() => handleSortColumn("deadline")}>
+                    <span className="flex space-x-6 items-center"><span>deadline</span> {sortConfig.column === "deadline" && getArrow()}</span>
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Status
+                <th scope="col" className="px-6 py-3 hover:bg-slate-300 cursor-pointer " onClick={() => handleSortColumn("status")}>
+                    <span className="flex space-x-6 items-center"><span>status</span> {sortConfig.column === "status" && getArrow()}</span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                     <span className="sr-only">Edit</span>
