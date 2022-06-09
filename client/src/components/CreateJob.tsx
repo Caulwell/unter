@@ -55,7 +55,7 @@ const CreateJob = ({toggleCreateModal, setJobs, jobs} : Props) => {
                                 <span className="font-light text-slate-400">Required</span>
                             </div>
                             <input 
-                            className=" w-96 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-96 p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-violet-800" 
                             name="company" 
                             value={company} 
                             onChange={e => setCompany(e.target.value)} 
@@ -69,7 +69,7 @@ const CreateJob = ({toggleCreateModal, setJobs, jobs} : Props) => {
                                 <span className="font-light text-slate-400">Required</span>
                             </div>
                             <input 
-                            className=" w-96 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-96 p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-violet-800" 
                             name="title" 
                             value={title} 
                             onChange={e => setTitle(e.target.value)} 
@@ -83,7 +83,7 @@ const CreateJob = ({toggleCreateModal, setJobs, jobs} : Props) => {
                                 <span className="font-light text-slate-400">Required</span>
                             </div>
                             <input 
-                            className=" w-96 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-96 p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-violet-800" 
                             name="location" 
                             value={location} 
                             onChange={e => setLocation(e.target.value)} 
@@ -92,8 +92,8 @@ const CreateJob = ({toggleCreateModal, setJobs, jobs} : Props) => {
                         </div>
 
                         <div className="border-t flex justify-end m space-x-4 pt-6">
-                            <button onClick={() => toggleCreateModal()} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Discard</button>
-                            <button onClick={() => handleForm()} className="p-1 px-2 text-white font-bold text-sm bg-slate-500 rounded hover:shadow-md">Save Job</button>
+                            <button onClick={() => toggleCreateModal()} className="p-1 px-2 text-violet-800 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Discard</button>
+                            <button onClick={() => handleForm()} className="p-1 px-2 text-white font-bold text-sm bg-violet-800 rounded hover:shadow-md">Save Job</button>
                         </div>
                        
         

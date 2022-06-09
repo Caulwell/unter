@@ -43,8 +43,8 @@ const DeleteJob = ({job, toggleDeleteModal} : Props) => {
                     <h5>Are you sure you want to delete this job?</h5>
                 </div>
                 <div className="flex items-center p-6 justify-center space-x-6">
-                <button onClick={() => toggleDeleteModal()} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Cancel</button>
-                <button onClick={() => handleDelete()} className="p-1 px-2 text-white font-bold text-sm bg-slate-500 rounded hover:shadow-md">Delete Job</button>
+                <button onClick={() => toggleDeleteModal()} className="p-1 px-2 text-violet-800 font-bold text-sm border border-violet-400 rounded hover:shadow-md">Cancel</button>
+                <button onClick={() => handleDelete()} className="p-1 px-2 text-white font-bold text-sm bg-violet-800 rounded hover:shadow-md">Delete Job</button>
                 </div>
                     </>
 

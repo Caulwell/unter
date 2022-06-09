@@ -74,14 +74,14 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                     <Loading/>
                     :
                     <>
-                    <div className="flex justify-between items-center border-b-2">
+                    <div className="flex justify-between items-center border-b-2 px-8">
                     <div className=" p-6 flex flex-col align-start font-bold">
                         <h1 className="text-2xl">{title}</h1>
                         <h3 className="font-light text-lg">{company}</h3>
                     </div>
                     <div className="flex justify-end m space-x-4 pt-6">
-                            <button onClick={() => toggleEditModal()} className="p-1 px-2 text-slate-500 font-bold text-sm border border-slate-300 rounded hover:shadow-md">Discard</button>
-                            <button onClick={() => handleEdit()} className="p-1 px-2 text-white font-bold text-sm bg-slate-500 rounded hover:shadow-md">Save Job</button>
+                            <button onClick={() => toggleEditModal()} className="p-1 px-2 text-violet-800 font-bold text-sm border border-violet-400 rounded hover:shadow-md">Discard</button>
+                            <button onClick={() => handleEdit()} className="p-1 px-2 text-white font-bold text-sm bg-violet-800 rounded hover:shadow-md">Save Job</button>
                     </div>
                     </div>
                    
@@ -91,7 +91,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="title" className="font-bold text-sm">Job Title</label>
                             <input 
-                            className=" w-36 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-36 p-2 rounded-md border border-violet-500 text-sm hover:border-slate-500 focus:outline-slate-500" 
                             name="title" 
                             value={title} 
                             onChange={e => setTitle(e.target.value)} 
@@ -101,7 +101,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="company" className="font-bold text-sm">Company</label>
                             <input 
-                            className=" w-36 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-36 p-2 rounded-md border border-violet-500 text-sm hover:border-slate-500 focus:outline-slate-500" 
                             name="company" 
                             value={company} 
                             onChange={e => setCompany(e.target.value)} 
@@ -112,7 +112,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="location" className="font-bold text-sm">Location</label>
                             <input 
-                            className=" w-36 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-36 p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-slate-500" 
                             name="location" 
                             value={location} 
                             onChange={e => setLocation(e.target.value)} 
@@ -126,7 +126,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="salary" className="font-bold text-sm">Salary</label>
                             <input 
-                            className=" w-36 p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" w-36 p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-slate-500" 
                             name="salary" 
                             value={salary} 
                             onChange={e => setSalary(e.target.value)} 
@@ -136,7 +136,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex flex-col grow space-y-2">
                             <label htmlFor="url" className="font-bold text-sm">URL</label>
                             <input 
-                            className=" grow p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" grow p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-slate-500" 
                             name="url" 
                             value={url} 
                             onChange={e => setUrl(e.target.value)} 
@@ -151,7 +151,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex grow flex-col space-y-2">
                             <label htmlFor="description" className="font-bold text-sm">Description</label>
                             <textarea 
-                            className=" grow p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" grow p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-slate-500" 
                             name="description" 
                             value={description} 
                             onChange={e => setDescription(e.target.value)} 
@@ -165,7 +165,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex grow flex-col space-y-2">
                             <label htmlFor="deadline" className="font-bold text-sm">Deadline</label>
                             <input 
-                            className=" grow p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" grow p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-slate-500" 
                             name="deadline" 
                             value={deadline} 
                             type="date"
@@ -175,7 +175,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                         <div className="flex grow flex-col space-y-2">
                             <label htmlFor="status" className="font-bold text-sm">Status</label>
                             <select 
-                            className=" grow p-2 rounded-md border border-slate-200 text-sm hover:border-slate-500 focus:outline-slate-500" 
+                            className=" grow p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-slate-500" 
                             name="status" 
                             value={status} 
                             onChange={e => setStatus(e.target.value)}>

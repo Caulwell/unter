@@ -114,7 +114,7 @@ const Dashboard = () => {
     }, [sortConfig])
 
     return (
-        <div className="flex flex-col overflow-hidden  w-screen h-full ">
+        <div className="flex flex-col overflow-hidden  w-screen h-full p-6 ">
             {createMode &&
             <CreateJob toggleCreateModal={toggleCreateModal} setJobs={setJobs} jobs={jobs}/>}
             {editMode && 

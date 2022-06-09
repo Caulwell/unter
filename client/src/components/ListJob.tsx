@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Job } from "../common/types";
 
 interface Props{
@@ -12,7 +13,7 @@ const ListJob = ({job, toggleEditModal, toggleDeleteModal, setCurrentJob} : Prop
 
 
     return (
-        <tr className="border-b border-gray-200 odd:bg-gray-100 even:bg-white">
+        <tr className="border-b border-gray-200 odd:bg-violet-100 even:bg-white">
 
        
                 <th scope="row" className="px-6 py-4 font-medium text-gray-700  whitespace-nowrap">
@@ -36,18 +37,18 @@ const ListJob = ({job, toggleEditModal, toggleDeleteModal, setCurrentJob} : Prop
                 <td className="px-6 py-4 text-gray-700">
                     {job.status}
                 </td>
-                <td className="px-3 py-4 text-right space-x-6">
+                <td className="px-3 py-4 text-right space-x-6 flex text-lg">
                     <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => {
                         toggleEditModal(job.id);
                         setCurrentJob(job);
                         }}>
-                        Edit
+                        <AiFillEdit/>
                     </a>
                     <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => {
                         toggleDeleteModal(job.id)
                         setCurrentJob(job);   
                     }}>
-                    Delete
+                    <AiFillDelete/>
                     </a>
                 </td>
 
