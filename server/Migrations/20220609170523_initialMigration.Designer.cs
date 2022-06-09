@@ -12,8 +12,8 @@ using unter.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220602185102_addJobsToDb")]
-    partial class addJobsToDb
+    [Migration("20220609170523_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,7 @@ namespace server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date_Added")

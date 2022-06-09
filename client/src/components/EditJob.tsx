@@ -16,7 +16,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
     const [company, setCompany] = useState(job?.company);
     const [location, setLocation] = useState(job?.location);
     const [salary, setSalary] = useState(job?.salary);
-    const [deadline, setDeadline] = useState(job?.deadline ? job?.deadline.split("T")[0] : "");
+    const [deadline, setDeadline] = useState(job?.deadline ? new Date(job?.deadline).toLocaleDateString() : "");
     const [status, setStatus] = useState(job?.status);
     const [description, setDescription] = useState(job?.description);
     const [url, setUrl] = useState(job?.url);
@@ -33,7 +33,7 @@ const EditJob = ({job, toggleEditModal} : Props) => {
                 company,
                 location,
                 salary,
-                deadline,
+                deadline: new Date(deadline),
                 status,
                 description,
                 url

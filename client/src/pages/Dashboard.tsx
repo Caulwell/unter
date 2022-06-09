@@ -42,6 +42,7 @@ const Dashboard = () => {
 
             axios.get("https://localhost:7001/job/")
             .then(res => {
+                console.log(res.data[0].date_Added);
                 setJobs(res.data);
                 setLoading(false);
             })

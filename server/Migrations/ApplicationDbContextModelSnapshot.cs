@@ -34,6 +34,7 @@ namespace server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date_Added")

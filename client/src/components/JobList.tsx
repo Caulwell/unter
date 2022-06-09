@@ -45,7 +45,7 @@ const JobList = ({jobs,toggleEditModal, toggleDeleteModal, setCurrentJob} : Prop
         <tbody>
             {jobs.map(job => {
                 return (
-                    <ListJob job={job} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} setCurrentJob={setCurrentJob}/>
+                    <ListJob key={`job${job.id}`} job={job} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} setCurrentJob={setCurrentJob}/>
                 )
             })}
             
