@@ -9,9 +9,9 @@ namespace unter.Controllers;
 public class JobController : ControllerBase
 {
 
-    private readonly ApplicationDbContext _db;
+    private readonly DataContext _db;
 
-    public JobController(ApplicationDbContext db){
+    public JobController(DataContext db){
         _db = db;
     }
 
