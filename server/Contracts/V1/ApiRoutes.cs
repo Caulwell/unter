@@ -9,7 +9,9 @@ namespace unter.Contracts.V1;
 
         public static class Jobs
         {
-            public const string GetAll = $"{Base}/jobs";
+            public const string GetAll = Base + "/jobs";
+            public const string Get = Base + "/jobs/{jobId}";
+            public const string Create = Base + "/jobs";
         }
         
     }

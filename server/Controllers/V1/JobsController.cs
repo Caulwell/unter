@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using unter.Domain;
 using unter.Data;
 using unter.Contracts.V1;
+using unter.Contracts.V1.Requests;
+using unter.Contracts.V1.Responses;
 
 namespace unter.Controllers.V1;
 
-[ApiController]
 public class JobsController : ControllerBase
 {
 
@@ -25,12 +26,25 @@ public class JobsController : ControllerBase
 
 
 
-    [HttpPost]
-    public IActionResult Post(Job job)
+    [HttpPost(ApiRoutes.Jobs.Create)]
+    public IActionResult Create(CreateJobRequest request)
     {
+
+        var job = new Job{
+            Company = request.Company,
+            Title = request.Title,
+            Location = request.Location
+        };
+
         _db.Jobs.Add(job);
         _db.SaveChanges();
-        return CreatedAtAction(nameof(Post), new {id = job.Id}, job);
+
+        var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+        var locationUri = baseUrl + "/" + ApiRoutes.Jobs.Get.Replace("{jobId}", job.Id.ToString());
+
+        var response = new CreateJobResponse{job = job};
+
+        return Created(locationUri, response);
     }
 
     [HttpPut]
