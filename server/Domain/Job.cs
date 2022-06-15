@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace unter.Models;
+namespace unter.Domain;
 
 
 public class Job{

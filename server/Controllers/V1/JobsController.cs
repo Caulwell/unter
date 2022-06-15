@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
-using unter.Models;
+using unter.Domain;
 using unter.Data;
+using unter.Contracts.V1;
 
-namespace unter.Controllers;
+namespace unter.Controllers.V1;
 
 [ApiController]
-[Route("[controller]")]
-public class JobController : ControllerBase
+public class JobsController : ControllerBase
 {
 
     private readonly DataContext _db;
 
-    public JobController(DataContext db){
+    public JobsController(DataContext db){
         _db = db;
     }
 
-    [HttpGet]
-    public IActionResult Get(){
+    [HttpGet(ApiRoutes.Jobs.GetAll)]
+    public IActionResult GetAll(){
 
         IEnumerable<Job> jobsList = _db.Jobs;
         return Ok(jobsList);
