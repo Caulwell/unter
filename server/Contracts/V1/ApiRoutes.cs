@@ -10,6 +10,8 @@ namespace unter.Contracts.V1;
         public static class Jobs
         {
             public const string GetAll = Base + "/jobs";
+            public const string Update = Base + "/jobs/{jobId}";
+            public const string Delete = Base + "/jobs/{jobId}";
             public const string Get = Base + "/jobs/{jobId}";
             public const string Create = Base + "/jobs";
         }

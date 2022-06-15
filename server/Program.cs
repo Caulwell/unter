@@ -1,5 +1,6 @@
 using unter.Data;
 using unter.Options;
+using unter.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
+
+builder.Services.AddScoped<IJobService, JobService>();
 
 builder.Services.AddCors(options =>
 {

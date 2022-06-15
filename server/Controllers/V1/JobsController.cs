@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using unter.Domain;
 using unter.Data;
+using unter.Services;
 using unter.Contracts.V1;
 using unter.Contracts.V1.Requests;
 using unter.Contracts.V1.Responses;
@@ -10,24 +11,63 @@ namespace unter.Controllers.V1;
 public class JobsController : ControllerBase
 {
 
-    private readonly DataContext _db;
+    private readonly IJobService _jobService;
 
-    public JobsController(DataContext db){
-        _db = db;
+    public JobsController(IJobService jobService){
+        _jobService = jobService;
     }
 
     [HttpGet(ApiRoutes.Jobs.GetAll)]
-    public IActionResult GetAll(){
+    public async Task<IActionResult> GetAllAsync(){
 
-        IEnumerable<Job> jobsList = _db.Jobs;
-        return Ok(jobsList);
+        return Ok(await _jobService.GetJobsAsync());
+        
+    }
+
+    [HttpPut(ApiRoutes.Jobs.Update)]
+    public async Task<IActionResult> Update(int jobId, UpdateJobRequest request)
+    {
+
+        var job = new Job
+        {
+            Id = jobId,
+            Title = request.Title,
+            Company = request.Company,
+            Location = request.Location,
+            Salary = request.Salary,
+            URL = request.URL,
+            Colour = request.Colour,
+            Description = request.Description,
+            Deadline = request.Deadline,
+            Status = request.Status,
+        };
+
+        var updated = await _jobService.UpdateJobAsync(job);
+
+        if(updated)
+            return Ok(job);
+
+        return NotFound();
+        
+        
+    }
+
+
+    [HttpGet(ApiRoutes.Jobs.Get)]
+    public async Task<IActionResult> Get(int jobId)
+    {
+
+        var jobFromDb = await _jobService.GetJobByIdAsync(jobId);
+        if(jobFromDb == null) return NotFound();
+
+        return Ok(jobFromDb);
         
     }
 
 
 
     [HttpPost(ApiRoutes.Jobs.Create)]
-    public IActionResult Create(CreateJobRequest request)
+    public async Task<IActionResult> Create(CreateJobRequest request)
     {
 
         var job = new Job{
@@ -36,8 +76,7 @@ public class JobsController : ControllerBase
             Location = request.Location
         };
 
-        _db.Jobs.Add(job);
-        _db.SaveChanges();
+        await _jobService.CreateJobAsync(job);
 
         var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
         var locationUri = baseUrl + "/" + ApiRoutes.Jobs.Get.Replace("{jobId}", job.Id.ToString());
@@ -45,53 +84,22 @@ public class JobsController : ControllerBase
         var response = new CreateJobResponse{job = job};
 
         return Created(locationUri, response);
+    
     }
-
-    [HttpPut]
-    public IActionResult Put(Job job)
-    {
-        var jobFromDb = _db.Jobs.FirstOrDefault(e => e.Id == job.Id);
-
-        if(jobFromDb != null){
-            jobFromDb.Title = job.Title;
-            jobFromDb.Company = job.Company;
-            jobFromDb.Location = job.Location;
-            jobFromDb.Salary = job.Salary;
-            jobFromDb.Deadline = job.Deadline;
-            jobFromDb.Status = job.Status;
-            jobFromDb.Description = job.Description;
-            jobFromDb.URL = job.URL;
-
-            _db.SaveChanges();
-
-            return NoContent();
-
-
-        } else {
-
-            return NotFound("No job found with that ID");
-        }
-
         
 
 
-    }
-    [HttpDelete("{id:int}")]
-    public IActionResult Delete(int id)
+    
+    [HttpDelete(ApiRoutes.Jobs.Delete)]
+    public async Task<IActionResult> Delete(int jobId)
     {
-        var jobFromDb = _db.Jobs.FirstOrDefault(e => e.Id == id);
+       var deleted = await _jobService.DeleteJobAsync(jobId);
 
-        if(jobFromDb != null){
-            _db.Jobs.Remove(jobFromDb);
-            _db.SaveChanges();
+       if(deleted)
             return NoContent();
-        } else {
 
-            return NotFound("No job found with that ID");
-        }
-
-        
-
+    
+        return NotFound();
 
     }
 
