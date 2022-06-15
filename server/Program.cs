@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Text;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -18,6 +20,8 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataContext>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -64,8 +68,9 @@ builder.Services.AddSwaggerGen(options => {
 });
 
 // JWT
-var jwtSettings = new JwtSettings();
-builder.Configuration.Bind(nameof(jwtSettings), jwtSettings);
+// var jwtSettings = new JwtSettings();
+// builder.Configuration.Bind(nameof(jwtSettings), jwtSettings);
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.AddSingleton(jwtSettings);
 
 builder.Services.AddAuthentication(options => {

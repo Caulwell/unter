@@ -1,10 +1,9 @@
 using unter.Domain;
-using Microsoft.EntityFrameworkCore;
-
-
 namespace unter.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-public class DataContext : DbContext
+public class DataContext : IdentityDbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {

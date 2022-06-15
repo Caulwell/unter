@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using unter.Domain;
 using unter.Data;
 using unter.Services;
@@ -6,8 +5,13 @@ using unter.Contracts.V1;
 using unter.Contracts.V1.Requests;
 using unter.Contracts.V1.Responses;
 
-namespace unter.Controllers.V1;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+
+namespace unter.Controllers.V1;
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class JobsController : ControllerBase
 {
 

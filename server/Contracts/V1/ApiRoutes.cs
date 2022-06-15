@@ -15,5 +15,10 @@ namespace unter.Contracts.V1;
             public const string Get = Base + "/jobs/{jobId}";
             public const string Create = Base + "/jobs";
         }
+
+        public static class Auth{
+            public const string Login = Base + "/auth/login";
+            public const string Register = Base + "/auth/register";
+        }
         
     }
