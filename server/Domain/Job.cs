@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 namespace unter.Domain;
 
 
@@ -19,6 +20,9 @@ public class Job{
     public DateTime Date_Added {get;set;} = DateTime.Today;
     public DateTime? Deadline {get;set;}
     public string Status {get;set;} = "New";
+    public string UserId {get;set;}
+    [ForeignKey(nameof(UserId))]
+    public IdentityUser User {get;set;}
 
     
 }

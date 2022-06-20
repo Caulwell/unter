@@ -1,5 +1,5 @@
 using unter.Domain;
-using unter.Data;
+using unter.Extensions;
 using unter.Services;
 using unter.Contracts.V1;
 using unter.Contracts.V1.Requests;
@@ -24,13 +24,19 @@ public class JobsController : ControllerBase
     [HttpGet(ApiRoutes.Jobs.GetAll)]
     public async Task<IActionResult> GetAllAsync(){
 
-        return Ok(await _jobService.GetJobsAsync());
+        return Ok(await _jobService.GetJobsAsync(HttpContext.GetUserId()));
         
     }
 
     [HttpPut(ApiRoutes.Jobs.Update)]
     public async Task<IActionResult> Update(int jobId, UpdateJobRequest request)
     {
+        var userOwnsJob = await _jobService.UserOwnsJobAsync(jobId, HttpContext.GetUserId());
+
+        if(!userOwnsJob)
+        {
+            return BadRequest( new {error = "You do not own this post"});
+        }
 
         var job = new Job
         {
@@ -77,7 +83,8 @@ public class JobsController : ControllerBase
         var job = new Job{
             Company = request.Company,
             Title = request.Title,
-            Location = request.Location
+            Location = request.Location,
+            UserId = HttpContext.GetUserId()
         };
 
         await _jobService.CreateJobAsync(job);
@@ -97,6 +104,14 @@ public class JobsController : ControllerBase
     [HttpDelete(ApiRoutes.Jobs.Delete)]
     public async Task<IActionResult> Delete(int jobId)
     {
+
+         var userOwnsJob = await _jobService.UserOwnsJobAsync(jobId, HttpContext.GetUserId());
+
+        if(!userOwnsJob)
+        {
+            return BadRequest( new {error = "You do not own this post"});
+        }
+
        var deleted = await _jobService.DeleteJobAsync(jobId);
 
        if(deleted)

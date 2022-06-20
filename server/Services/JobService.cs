@@ -12,9 +12,9 @@ namespace unter.Services
             _dataContext = dataContext;
         }
 
-        public async Task<List<Job>> GetJobsAsync()
+        public async Task<List<Job>> GetJobsAsync(string userId)
         {
-            return await _dataContext.Jobs.ToListAsync();
+            return await _dataContext.Jobs.Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task<Job> GetJobByIdAsync(int jobId)
@@ -41,6 +41,24 @@ namespace unter.Services
             _dataContext.Jobs.Remove(job);
             var deleted = await _dataContext.SaveChangesAsync();
             return deleted > 0;
+        }
+
+        public async Task<bool> UserOwnsJobAsync(int jobId, string userId)
+        {
+            var job = await _dataContext.Jobs.AsNoTracking().SingleOrDefaultAsync(x => x.Id == jobId);
+
+            if(job == null)
+            {
+                return false;
+            }
+
+            if(job.UserId != userId)
+            {
+                return false;
+            }
+
+            return true;
+
         }
     }
 }
