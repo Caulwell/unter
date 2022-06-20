@@ -19,7 +19,33 @@ namespace unter.Controllers.V1
         [HttpPost(ApiRoutes.Auth.Register)]
         public async Task<IActionResult> Register(UserRegistrationRequest request)
         {
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = ModelState.Values.SelectMany(x => x.Errors.Select(xx => xx.ErrorMessage))
+                });
+            }
+
             var authResponse = await _authService.RegisterAsync(request.Email, request.Password);
+
+            if(!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+                });
+            }
+            return Ok(new AuthSuccessResponse{
+                Token = authResponse.Token
+            });
+        }
+
+        [HttpPost(ApiRoutes.Auth.Login)]
+        public async Task<IActionResult> Login(UserLoginRequest request)
+        {
+            var authResponse = await _authService.LoginAsync(request.Email, request.Password);
 
             if(!authResponse.Success)
             {
