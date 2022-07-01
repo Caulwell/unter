@@ -8,6 +8,7 @@ import axios from "axios";
 import EditJob from "../components/EditJob";
 import DeleteJob from "../components/DeleteJob";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -21,7 +22,8 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(false);
 
     const [sortConfig, setSortConfig] = useState<{column:string; direction: "ascending"|"descending";}>({column: "title", direction: "descending"});
-
+    const [userToken, setUserToken] = useState<string | null>("");
+    const navigate = useNavigate();
 
     const toggleCreateModal = () => {
         setCreateMode(!createMode);
@@ -65,11 +67,25 @@ const Dashboard = () => {
 
     useEffect(() => {
 
+        const token = localStorage.getItem("token");
+
+        if(!token){
+            navigate("/login");
+        }
+
+        setUserToken(token);
+
+        const config = {
+            headers: {Authorization: `Bearer ${userToken}`}
+        }
+
         if(!editMode && !deleteMode){
 
             setLoading(true);
 
-            axios.get("https://localhost:7001/job/")
+            axios.get("https://localhost:7001/api/v1/jobs", 
+               config
+            )
             .then(res => {
                 console.log(res.data[0].date_Added);
                 setJobs(res.data);

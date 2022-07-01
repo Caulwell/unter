@@ -17,7 +17,7 @@ namespace unter.Controllers.V1
 
 
         [HttpPost(ApiRoutes.Auth.Register)]
-        public async Task<IActionResult> Register(UserRegistrationRequest request)
+        public async Task<IActionResult> Register([FromBody] UserRegistrationRequest request)
         {
 
             if(!ModelState.IsValid)
@@ -43,7 +43,7 @@ namespace unter.Controllers.V1
         }
 
         [HttpPost(ApiRoutes.Auth.Login)]
-        public async Task<IActionResult> Login(UserLoginRequest request)
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
             var authResponse = await _authService.LoginAsync(request.Email, request.Password);
 
