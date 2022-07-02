@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Swal from 'sweetalert2'
 
-const Login = () => {
+const Register = () => {
 
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<string[]>([]);
 
@@ -27,9 +28,9 @@ const Login = () => {
     },[errors])
 
 
-    const handleLogin = () => {
+    const handleRegister = () => {
         setLoading(true);
-        axios.post("https://localhost:7001/api/v1/auth/login", {
+        axios.post("https://localhost:7001/api/v1/auth/register", {
             Email: email,
             Password: password
         })
@@ -39,12 +40,13 @@ const Login = () => {
             setLoading(false);
             Swal.fire({
                 title: 'Success!',
-                text: "You have successfully logged in",
+                text: "You have successfully registered!",
                 icon: 'success',
                 confirmButtonText: 'Go To Dashboard'
               }).then(() => {
                 navigate("/dashboard");
               });
+            
         })
         .catch(err => {
             setErrors(err.response.data.errors);
@@ -63,8 +65,8 @@ const Login = () => {
                     :
                     <>
                     <div className="flex justify-center border-b-2 p-2 font-bold">
-                    Login
-                    </div>
+                    Register
+            </div>
 
             <div className="flex flex-col space-y-4 py-6 px-4">
 
@@ -96,16 +98,23 @@ const Login = () => {
                     placeholder="Password"/>
                 </div>
 
-                <button onClick={() => handleLogin()} className="p-1 px-2 text-white font-bold text-sm bg-violet-800 rounded hover:shadow-md">LOGIN</button>
-               
-                <div className="flex justify-center border-b-2 p-2 font-bold">
-                    Or Register
+                <div className="flex flex-col space-y-2">
+                    <div className="flex justify-between text-sm px-1">
+                        <label htmlFor="password2" className="font-bold">Repeat Password</label>
+                        <span className="font-light text-slate-400">Required</span>
                     </div>
-                    <Link 
-                    to="/register"
-                    className="p-3  pt-2 text-white bg-primaryBg rounded-full baseline hover:bg-primaryBg text-center">
-                    Register
-                </Link>
+                    <input 
+                    className=" w-96 p-2 rounded-md border border-violet-500 text-sm hover:border-violet-800 focus:outline-violet-800" 
+                    name="password2" 
+                    value={password2} 
+                    onChange={e => setPassword2(e.target.value)} 
+                    type="text" 
+                    placeholder="Repeat Password"/>
+                </div>
+
+                <button onClick={() => handleRegister()} className="p-1 px-2 text-white font-bold text-sm bg-violet-800 rounded hover:shadow-md">Register</button>
+               
+
             </div>
             </>
 
@@ -119,4 +128,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Register;
