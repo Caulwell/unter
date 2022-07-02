@@ -2,8 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
 import {useNavigate} from "react-router-dom";
-
-
+import Swal from 'sweetalert2'
 
 const Login = () => {
 
@@ -11,6 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState<string[]>([]);
 
     let navigate = useNavigate()
 
@@ -22,12 +22,20 @@ const Login = () => {
             Password: password
         })
         .then(res => {
+            console.log(res);
             localStorage.setItem("token", res.data.token);
             setLoading(false);
             navigate("/dashboard");
         })
         .catch(err => {
-            console.log(err);
+            setErrors(err.response.data.errors);
+            Swal.fire({
+                title: 'Error!',
+                text: errors[0],
+                icon: 'error',
+                confirmButtonText: 'Okay'
+              });
+            setLoading(false);
         })
     };
 

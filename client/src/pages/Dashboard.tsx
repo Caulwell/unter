@@ -71,6 +71,7 @@ const Dashboard = () => {
 
         if(!token){
             navigate("/login");
+            return;
         }
 
         setUserToken(token);
