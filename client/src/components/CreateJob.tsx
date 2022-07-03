@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
+import { createJobAsync } from "../common/api";
 import {Job} from "../common/types";
 
 
@@ -19,22 +19,16 @@ const CreateJob = ({toggleCreateModal, setJobs, jobs} : Props) => {
     const [location, setLocation] = useState("");
 
 
-    const handleForm = () => {
-        axios.post("https://localhost:7001/job/", {
-            title,
-            company,
-            location,
-        })
-        .then(res => {
+    const handleForm = async () => {
+        const job = await createJobAsync(company, title, location);
+
+        if(job){
             setTitle("");
             setCompany("");
             setLocation("");
             toggleCreateModal();
-            setJobs([...jobs, res.data]);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            setJobs([...jobs, job]);
+        }
     }
 
     

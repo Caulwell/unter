@@ -1,61 +1,57 @@
-import axios from "axios";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { editJobAsync } from "../common/api";
 import { Job } from "../common/types";
 import Loading from "./Loading";
 
 interface Props{
     job: Job | undefined,
-    toggleEditModal: () => void
+    toggleEditModal: () => void,
+    jobs: Job[],
+    setJobs: Dispatch<SetStateAction<Job[]>>,
 }
 
 
 
-const EditJob = ({job, toggleEditModal} : Props) => {
+const EditJob = ({job, toggleEditModal, jobs, setJobs} : Props) => {
 
-    const [title, setTitle] = useState(job?.title);
-    const [company, setCompany] = useState(job?.company);
-    const [location, setLocation] = useState(job?.location);
-    const [salary, setSalary] = useState(job?.salary);
+    const [title, setTitle] = useState(job?.title || "");
+    const [company, setCompany] = useState(job?.company || "");
+    const [location, setLocation] = useState(job?.location || "");
+    const [salary, setSalary] = useState(job?.salary || "");
     const [deadline, setDeadline] = useState(job?.deadline ? new Date(job?.deadline).toLocaleDateString() : "");
-    const [status, setStatus] = useState(job?.status);
-    const [description, setDescription] = useState(job?.description);
-    const [url, setUrl] = useState(job?.url);
+    const [status, setStatus] = useState(job?.status || "");
+    const [description, setDescription] = useState(job?.description || "");
+    const [url, setUrl] = useState(job?.url || "");
 
     const [loading, setLoading] = useState(false);
 
-    const handleEdit = () => {
+    const handleEdit = async () => {
 
         setLoading(true);
 
-            axios.put("https://localhost:7001/job/", {
-                id:job?.id,
-                title,
-                company,
-                location,
-                salary,
-                deadline: new Date(deadline),
-                status,
-                description,
-                url
-            })
-            .then(res => {
-                setTitle("");
-                setCompany("");
-                setLocation("");
-                setSalary("");
-                setDeadline("");
-                setStatus("");
-                setDescription("");
-                setUrl("");
-                setLoading(false);
-                toggleEditModal();
+            const data = await editJobAsync(title,company,location,salary,deadline,status,description,url,job?.id);
+            setTitle("");
+            setCompany("");
+            setLocation("");
+            setSalary("");
+            setDeadline("");
+            setStatus("");
+            setDescription("");
+            setUrl("");
+            setLoading(false);
+
+            setJobs(jobs.map(el => job?.id == el.id ? data : el));
+            toggleEditModal();
+
+            Swal.fire({
+                title: "Success",
+                text: `Job successfully edited`,
+                icon: "success",
+                confirmButtonText: 'Okay'
+            });
                 
-            })
-            .catch(err => {
-                console.log(err);
-                setLoading(false);
-                toggleEditModal();
-            })
+
 
     }
 

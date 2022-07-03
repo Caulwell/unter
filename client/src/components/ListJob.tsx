@@ -5,11 +5,11 @@ import { Job } from "../common/types";
 interface Props{
     job: Job,
     toggleEditModal: (id:number) => void,
-    toggleDeleteModal: (id:number) => void,
+    deleteJob: (job:Job) => void,
     setCurrentJob: (job:Job) => void
 }
 
-const ListJob = ({job, toggleEditModal, toggleDeleteModal, setCurrentJob} : Props) => {
+const ListJob = ({job, toggleEditModal, deleteJob, setCurrentJob} : Props) => {
 
 
     return (
@@ -45,8 +45,7 @@ const ListJob = ({job, toggleEditModal, toggleDeleteModal, setCurrentJob} : Prop
                         <AiFillEdit/>
                     </a>
                     <a href="#" className="font-medium text-gray-700  hover:underline" onClick={() => {
-                        toggleDeleteModal(job.id)
-                        setCurrentJob(job);   
+                        deleteJob(job)
                     }}>
                     <AiFillDelete/>
                     </a>

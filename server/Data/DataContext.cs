@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class DataContext : IdentityDbContext
 {
+
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
 

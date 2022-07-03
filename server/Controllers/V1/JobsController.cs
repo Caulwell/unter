@@ -29,7 +29,7 @@ public class JobsController : ControllerBase
     }
 
     [HttpPut(ApiRoutes.Jobs.Update)]
-    public async Task<IActionResult> Update(int jobId, UpdateJobRequest request)
+    public async Task<IActionResult> Update(int jobId, [FromBody]UpdateJobRequest request)
     {
         var userOwnsJob = await _jobService.UserOwnsJobAsync(jobId, HttpContext.GetUserId());
 
@@ -50,6 +50,7 @@ public class JobsController : ControllerBase
             Description = request.Description,
             Deadline = request.Deadline,
             Status = request.Status,
+            UserId= HttpContext.GetUserId()
         };
 
         var updated = await _jobService.UpdateJobAsync(job);
@@ -77,10 +78,11 @@ public class JobsController : ControllerBase
 
 
     [HttpPost(ApiRoutes.Jobs.Create)]
-    public async Task<IActionResult> Create(CreateJobRequest request)
+    public async Task<IActionResult> Create([FromBody]CreateJobRequest request)
     {
 
-        var job = new Job{
+        var job = new Job
+        {
             Company = request.Company,
             Title = request.Title,
             Location = request.Location,

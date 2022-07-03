@@ -8,12 +8,12 @@ import {FaChevronDown, FaChevronUp} from "react-icons/fa";
 interface Props{
     jobs: Job[],
     toggleEditModal: (id:number) => void,
-    toggleDeleteModal: (id:number) => void,
     setCurrentJob: Dispatch<SetStateAction<Job | undefined>>,
+    deleteJob: (job:Job) => void,
     handleSortColumn: (column:string) => void,
     sortConfig: {column:string, direction: "ascending" | "descending"},
 }
-const JobList = ({jobs,toggleEditModal, toggleDeleteModal, setCurrentJob, handleSortColumn, sortConfig} : Props) => {
+const JobList = ({jobs,toggleEditModal, deleteJob, setCurrentJob, handleSortColumn, sortConfig} : Props) => {
 
 
     const getArrow = () => sortConfig.direction === "ascending" ? <FaChevronUp/> : <FaChevronDown/>
@@ -53,7 +53,7 @@ const JobList = ({jobs,toggleEditModal, toggleDeleteModal, setCurrentJob, handle
         <tbody>
             {jobs.map(job => {
                 return (
-                    <ListJob key={`job${job.id}`} job={job} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} setCurrentJob={setCurrentJob}/>
+                    <ListJob key={`job${job.id}`} job={job} toggleEditModal={toggleEditModal} deleteJob={deleteJob} setCurrentJob={setCurrentJob}/>
                 )
             })}
             
